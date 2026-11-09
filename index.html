@@ -3,106 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Campus Parcel Hub</title>
+  <title>Home | Campus Parcel Hub</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-content">
-      <a class="site-name" href="#">Campus Parcel Hub</a>
-      <nav aria-label="Page sections">
-        <a href="#add-parcel">Add a parcel</a>
-        <a href="#parcel-list">Parcel list</a>
-        <a href="#student-lookup">Student lookup</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="intro">
-      <p class="small-heading">Campus parcel desk</p>
-      <h1>Manage campus parcels</h1>
-      <p>Record new deliveries, update their progress, and let students check a parcel using their student ID.</p>
-    </section>
-
-    <section class="panel how-it-works" aria-labelledby="steps-title">
-      <h2 id="steps-title">How it works</h2>
-      <ol>
-        <li>Log the parcel when it arrives.</li>
-        <li>Update it as it moves across campus.</li>
-        <li>Mark it collected when the student picks it up.</li>
-      </ol>
-    </section>
-
-    <section class="panel" id="add-parcel" aria-labelledby="add-title">
-      <h2 id="add-title">Add a parcel</h2>
-      <p class="section-help">Enter the student and delivery details.</p>
-      <form id="parcel-form">
-        <div class="form-grid">
-          <label>
-            Student name
-            <input name="studentName" type="text" required>
-          </label>
-          <label>
-            Student ID
-            <input name="studentId" type="text" inputmode="numeric" required>
-          </label>
-          <label>
-            Hostel or block
-            <input name="location" type="text" placeholder="For example, Block C" required>
-          </label>
-        </div>
-        <button class="button" type="submit">Add parcel</button>
-        <p class="form-message" id="form-message" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section class="panel" id="parcel-list" aria-labelledby="list-title">
-      <div class="section-heading">
-        <div>
-          <h2 id="list-title">Parcel list</h2>
-          <p class="section-help">Select “Next step” to update a parcel's status.</p>
-        </div>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="index.html">
+          <img class="lpu-logo" src="lpu-logo.jpg" alt="Lovely Professional University logo">
+          <span class="brand-text"><strong>Campus Parcel Hub</strong><small>Campus parcel desk</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="parcels.html">Manage Parcels</a>
+          <a href="lookup.html">Student Lookup</a>
+          <a href="about.html">About Us</a>
+        </nav>
       </div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Parcel ID</th>
-              <th scope="col">Student</th>
-              <th scope="col">Student ID</th>
-              <th scope="col">Hostel or block</th>
-              <th scope="col">Status</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody id="parcel-rows"></tbody>
-        </table>
+    </header>
+  <main class="container page-content">
+    <section class="home-intro">
+      <p class="eyebrow">LOVELY PROFESSIONAL UNIVERSITY · STUDENT SERVICES</p>
+      <h1>Campus parcels, kept organised</h1>
+      <p>Campus Parcel Hub helps the parcel desk record deliveries and follow each parcel until a student collects it.</p>
+      <div class="button-row">
+        <a class="button" href="parcels.html">Manage parcels</a>
+        <a class="button button-secondary" href="lookup.html">Look up a parcel</a>
       </div>
     </section>
 
-    <section class="panel" id="student-lookup" aria-labelledby="lookup-title">
-      <h2 id="lookup-title">Student lookup</h2>
-      <p class="section-help">Enter a student ID to see that student's parcel status.</p>
-      <form id="lookup-form" class="lookup-form">
-        <label for="lookup-id">Student ID</label>
-        <div class="lookup-row">
-          <input id="lookup-id" name="studentId" type="text" inputmode="numeric" required>
-          <button class="button" type="submit">Find parcel</button>
-        </div>
-      </form>
-      <p class="section-help">Try a sample ID: 12345678, 87654321, or 11223344.</p>
-      <div id="lookup-results" class="lookup-results" aria-live="polite">
-        <p class="quiet-text">Parcel results will appear here.</p>
+    <section class="summary-grid" aria-label="Parcel summary">
+      <article class="summary-card">
+        <p>Total parcels</p>
+        <strong id="total-count">0</strong>
+      </article>
+      <article class="summary-card">
+        <p>Ready to collect</p>
+        <strong id="ready-count">0</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>How it works</h2>
+      <div class="steps-grid">
+        <article class="step">
+          <span>1</span>
+          <div><h3>Add a parcel</h3><p>Enter the student's name, ID, and hostel or block.</p></div>
+        </article>
+        <article class="step">
+          <span>2</span>
+          <div><h3>Update its status</h3><p>Move it from the desk to the campus courier and collection.</p></div>
+        </article>
+        <article class="step">
+          <span>3</span>
+          <div><h3>Check a parcel</h3><p>Students can search for their parcels with their student ID.</p></div>
+        </article>
       </div>
     </section>
+
+    <p class="note">This is a classroom demo. Example parcel details are stored in this browser.</p>
   </main>
-
-  <footer class="container footer">
-    Student project demo. Sample parcel details are saved in this browser.
-  </footer>
+    <footer class="site-footer">
+      <div class="container">Campus Parcel Hub · LPU classroom project demo</div>
+    </footer>
 </body>
 </html>
-
-

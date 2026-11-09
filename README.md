@@ -1,29 +1,36 @@
 # Campus Parcel Hub
 
-A small campus parcel desk demo made with HTML, CSS and JavaScript.
+A simple LPU campus parcel desk demo made with HTML, CSS, and JavaScript.
 
 ## Open the website
 
-Open index.html in a web browser. No installation or server is needed.
+Open index.html in a browser. The four pages link to each other, and no server or installation is needed.
+
+## Pages
+
+- index.html is the home page and shows a parcel summary.
+- parcels.html lets desk staff add parcels and update their status.
+- lookup.html lets students search for parcels by student ID.
+- about.html explains the project and the technologies used.
 
 ## What it does
 
-- Shows a few example parcels.
-- Adds a parcel with the student's name, student ID and hostel or block.
-- Moves each parcel through four statuses: At desk, With courier, Ready to collect, and Collected.
-- Finds a student's parcel by student ID.
+- Shows four sample parcels.
+- Adds parcels with a generated parcel ID.
+- Moves parcels through At desk, With courier, Ready to collect, and Collected.
+- Finds parcels using a student's ID.
 - Saves the parcel list in browser storage so it remains after a refresh.
 
 ## Simple presentation guide
 
-1. The HTML file contains the page sections, form, table and student lookup.
-2. The CSS file controls the colors, spacing and mobile layout.
-3. The JavaScript file starts with sample parcel records and draws them in the table.
-4. When the form is submitted, JavaScript adds a new parcel to the list.
-5. The Next step button changes the parcel's status.
-6. Student lookup filters the list using the entered student ID.
-7. Local storage saves the list in the current browser.
+1. HTML creates the page sections, links, forms, and table.
+2. CSS controls the colors, spacing, and layout for different screen sizes.
+3. JavaScript adds parcels, changes their status, and searches by student ID.
+4. Browser storage saves the demo parcel list on the same computer.
 
 ## Project limits
 
-This is a classroom demo. It has no server or database, and the sample records are only stored in the browser. A real campus service would need a secure server and student sign-in.
+This is a classroom demo. It has no server or secure student sign-in, and parcel details are stored only in this browser. Use sample details only.
+
+The LPU logo in lpu-logo.jpg is from the official LPU Media Kit:
+https://www.lpu.in/lpu-assets/images/media-kit/lpu-logo.jpg

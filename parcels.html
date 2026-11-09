@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage Parcels | Campus Parcel Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="index.html">
+          <img class="lpu-logo" src="lpu-logo.jpg" alt="Lovely Professional University logo">
+          <span class="brand-text"><strong>Campus Parcel Hub</strong><small>Campus parcel desk</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="parcels.html" aria-current="page">Manage Parcels</a>
+          <a href="lookup.html">Student Lookup</a>
+          <a href="about.html">About Us</a>
+        </nav>
+      </div>
+    </header>
+  <main class="container page-content">
+    <section class="page-heading">
+      <p class="eyebrow">PARCEL DESK</p>
+      <h1>Manage Parcels</h1>
+      <p>Add a delivery and update it as it moves through campus.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="add-title">
+      <h2 id="add-title">Add a parcel</h2>
+      <p class="section-help">Enter the student and delivery details.</p>
+      <form id="parcel-form">
+        <div class="form-grid">
+          <label>Student name
+            <input name="studentName" type="text" required>
+          </label>
+          <label>Student ID
+            <input name="studentId" type="text" inputmode="numeric" required>
+          </label>
+          <label>Hostel or block
+            <input name="location" type="text" placeholder="For example, Block C" required>
+          </label>
+        </div>
+        <button class="button" type="submit">Add parcel</button>
+        <p class="form-message" id="form-message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="list-title">
+      <h2 id="list-title">Parcel list</h2>
+      <p class="section-help">Select “Next step” to update a parcel's status.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Parcel ID</th>
+              <th scope="col">Student</th>
+              <th scope="col">Student ID</th>
+              <th scope="col">Hostel or block</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="parcel-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+    <footer class="site-footer">
+      <div class="container">Campus Parcel Hub · LPU classroom project demo</div>
+    </footer>
+</body>
+</html>

@@ -10,12 +10,6 @@ const sampleParcels = [
   { id: "P004", studentName: "Rohan Gill", studentId: "22004568", location: "Block D", status: "Collected" }
 ];
 
-const parcelRows = document.getElementById("parcel-rows");
-const parcelForm = document.getElementById("parcel-form");
-const formMessage = document.getElementById("form-message");
-const lookupForm = document.getElementById("lookup-form");
-const lookupResults = document.getElementById("lookup-results");
-
 function loadParcels() {
   try {
     const savedParcels = localStorage.getItem(STORAGE_KEY);
@@ -30,9 +24,19 @@ function loadParcels() {
 }
 
 const parcels = loadParcels();
+const parcelRows = document.getElementById("parcel-rows");
+const parcelForm = document.getElementById("parcel-form");
+const formMessage = document.getElementById("form-message");
+const lookupForm = document.getElementById("lookup-form");
+const lookupResults = document.getElementById("lookup-results");
 
 function saveParcels() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(parcels));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(parcels));
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 function addCell(row, text) {
@@ -51,7 +55,16 @@ function addStatusLabel(parent, status) {
 }
 
 function renderParcels() {
+  if (!parcelRows) return;
   parcelRows.innerHTML = "";
+
+  if (parcels.length === 0) {
+    const row = document.createElement("tr");
+    const cell = addCell(row, "No parcels have been added yet.");
+    cell.colSpan = 6;
+    parcelRows.appendChild(row);
+    return;
+  }
 
   parcels.forEach(function (parcel, index) {
     const row = document.createElement("tr");
@@ -79,69 +92,95 @@ function renderParcels() {
   });
 }
 
-parcelForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+function updateHomeCounts() {
+  const totalCount = document.getElementById("total-count");
+  const readyCount = document.getElementById("ready-count");
 
-  const newParcel = {
-    id: "P" + String(parcels.length + 1).padStart(3, "0"),
-    studentName: parcelForm.elements.studentName.value.trim(),
-    studentId: parcelForm.elements.studentId.value.trim(),
-    location: parcelForm.elements.location.value.trim(),
-    status: statuses[0]
-  };
+  if (totalCount) totalCount.textContent = parcels.length;
+  if (readyCount) {
+    readyCount.textContent = parcels.filter(function (parcel) {
+      return parcel.status === "Ready to collect";
+    }).length;
+  }
+}
 
-  parcels.push(newParcel);
-  saveParcels();
-  renderParcels();
-  parcelForm.reset();
-  formMessage.textContent = "Parcel " + newParcel.id + " added.";
-});
+if (parcelForm) {
+  parcelForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-parcelRows.addEventListener("click", function (event) {
-  const button = event.target.closest("button[data-parcel-index]");
-  if (!button) return;
+    const nextNumber = parcels.length + 1;
+    const newParcel = {
+      id: "P" + String(nextNumber).padStart(3, "0"),
+      studentName: parcelForm.elements.studentName.value.trim(),
+      studentId: parcelForm.elements.studentId.value.trim(),
+      location: parcelForm.elements.location.value.trim(),
+      status: statuses[0]
+    };
 
-  const parcel = parcels[Number(button.dataset.parcelIndex)];
-  const currentStatus = statuses.indexOf(parcel.status);
-  if (currentStatus < statuses.length - 1) {
-    parcel.status = statuses[currentStatus + 1];
-    saveParcels();
+    parcels.push(newParcel);
+    const saved = saveParcels();
     renderParcels();
-  }
-});
-
-lookupForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const studentId = lookupForm.elements.studentId.value.trim();
-  const matches = parcels.filter(function (parcel) {
-    return parcel.studentId === studentId;
+    updateHomeCounts();
+    parcelForm.reset();
+    formMessage.textContent = saved
+      ? "Parcel " + newParcel.id + " added."
+      : "Parcel added, but browser storage was unavailable.";
   });
+}
 
-  lookupResults.innerHTML = "";
+if (parcelRows) {
+  parcelRows.addEventListener("click", function (event) {
+    const button = event.target.closest("button[data-parcel-index]");
+    if (!button) return;
 
-  if (matches.length === 0) {
-    const message = document.createElement("p");
-    message.className = "quiet-text";
-    message.textContent = "No parcel was found for student ID " + studentId + ".";
-    lookupResults.appendChild(message);
-    return;
-  }
+    const parcel = parcels[Number(button.dataset.parcelIndex)];
+    if (!parcel) return;
 
-  matches.forEach(function (parcel) {
-    const result = document.createElement("div");
-    result.className = "lookup-result";
-
-    const id = document.createElement("p");
-    id.textContent = "Parcel " + parcel.id + " · " + parcel.location;
-    result.appendChild(id);
-
-    const status = document.createElement("p");
-    status.textContent = "Status: " + parcel.status;
-    result.appendChild(status);
-
-    lookupResults.appendChild(result);
+    const currentStatus = statuses.indexOf(parcel.status);
+    if (currentStatus < statuses.length - 1) {
+      parcel.status = statuses[currentStatus + 1];
+      saveParcels();
+      renderParcels();
+      updateHomeCounts();
+    }
   });
-});
+}
+
+if (lookupForm) {
+  lookupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const studentId = lookupForm.elements.studentId.value.trim();
+    const matches = parcels.filter(function (parcel) {
+      return parcel.studentId === studentId;
+    });
+
+    lookupResults.innerHTML = "";
+
+    if (matches.length === 0) {
+      const message = document.createElement("p");
+      message.className = "quiet-text";
+      message.textContent = "No parcel was found for student ID " + studentId + ".";
+      lookupResults.appendChild(message);
+      return;
+    }
+
+    matches.forEach(function (parcel) {
+      const result = document.createElement("div");
+      result.className = "lookup-result";
+
+      const id = document.createElement("p");
+      id.textContent = "Parcel " + parcel.id + " · " + parcel.location;
+      result.appendChild(id);
+
+      const status = document.createElement("p");
+      status.textContent = "Status: " + parcel.status;
+      result.appendChild(status);
+
+      lookupResults.appendChild(result);
+    });
+  });
+}
 
 renderParcels();
+updateHomeCounts();

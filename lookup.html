@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Lookup | Campus Parcel Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="index.html">
+          <img class="lpu-logo" src="lpu-logo.jpg" alt="Lovely Professional University logo">
+          <span class="brand-text"><strong>Campus Parcel Hub</strong><small>Campus parcel desk</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="parcels.html">Manage Parcels</a>
+          <a href="lookup.html" aria-current="page">Student Lookup</a>
+          <a href="about.html">About Us</a>
+        </nav>
+      </div>
+    </header>
+  <main class="container page-content">
+    <section class="page-heading">
+      <p class="eyebrow">STUDENT SERVICES</p>
+      <h1>Student Lookup</h1>
+      <p>Enter a student ID to check the status of their parcel.</p>
+    </section>
+
+    <section class="panel lookup-panel" aria-labelledby="lookup-title">
+      <h2 id="lookup-title">Find a parcel</h2>
+      <form id="lookup-form" class="lookup-form">
+        <label for="lookup-id">Student ID</label>
+        <div class="lookup-row">
+          <input id="lookup-id" name="studentId" type="text" inputmode="numeric" required>
+          <button class="button" type="submit">Find parcel</button>
+        </div>
+      </form>
+      <p class="section-help sample-hint">Try a sample ID: 12345678, 87654321, or 11223344.</p>
+      <div id="lookup-results" class="lookup-results" aria-live="polite">
+        <p class="quiet-text">Parcel results will appear here.</p>
+      </div>
+    </section>
+  </main>
+    <footer class="site-footer">
+      <div class="container">Campus Parcel Hub · LPU classroom project demo</div>
+    </footer>
+</body>
+</html>
